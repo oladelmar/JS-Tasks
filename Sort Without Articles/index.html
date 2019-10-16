@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sort Without Articles</title>
+</head>
+<body>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #bands {
+      list-style: inside square;
+      font-size: 20px;
+      background: white;
+      width: 500px;
+      margin: auto;
+      padding: 0;
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    #bands li {
+      border-bottom: 1px solid #efefef;
+      padding: 20px;
+    }
+    #bands li:last-child {
+      border-bottom: 0;
+    }
+
+    a {
+      color: #ffc600;
+      text-decoration: none;
+    }
+
+  </style>
+
+  <ul id="bands"></ul>
+  
+  <button id="sort">Sort</button>
+
+<script>
+const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+    const bandsList = document.getElementById('bands');
+    
+    function sortBands() {
+        
+        const bandsSorted = bands.sort((item1, item2) => {
+            if (item1.indexOf('The ') === 0 || item1.indexOf('A ') === 0 || item1.indexOf('An ') === 0) {
+                item1 = item1.slice(item1.indexOf(' ') + 1);
+            }
+            if (item2.indexOf('The ') === 0 || item2.indexOf('A ') === 0 || item2.indexOf('An ') === 0) {
+                item2 = item2.slice(item2.indexOf(' ') + 1);
+            }
+            return (item1 > item2) ? 1 : (item1 === item2) ? 0 : -1;  // YES!!!                              
+        });
+        
+        populateList(bandsSorted);
+    }
+    
+    function populateList(items = []) {
+        bandsList.innerHTML = items.map(item => {
+            return `
+                <li>
+                    ${item}
+                </li>
+            `;
+        }).join('');
+    }
+    
+    populateList(bands);
+    document.getElementById('sort').addEventListener('click', sortBands);
+
+</script>
+
+</body>
+</html>
